@@ -25,6 +25,40 @@ const GameStatusOverlay: React.FC<{ status: 'cleared' | 'failed' }> = ({ status 
 };
 
 
+const siteUrl = "https://puzzle-panel.example.com"; // TODO: 本番環境のドメインに変更してください
+
+const JsonLd = () => {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Puzzle Panel (パズルパネル)",
+    "url": siteUrl,
+    "description": "A brain-teasing puzzle game with an ancient Egyptian theme. Flip the stone panels to match the target pattern in a set number of moves. | 古代エジプトがテーマの、シンプルで奥深いロジカルパズルゲーム。石板を反転させ、規定回数内に目標の模様を完成させよう。",
+    "inLanguage": ["en", "ja"],
+    "applicationCategory": "Game",
+    "gamePlatform": "WebBrowser",
+    "operatingSystem": "Any",
+    "screenshot": `${siteUrl}/screenshot.png`,
+    "image": `${siteUrl}/og-image.png`,
+    "author": {
+      "@type": "Organization",
+      "name": "Puzzle Panel Project"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0"
+    },
+    "playMode": "SinglePlayer"
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+};
+
+
 export default function Home() {
   const [level, setLevel] = useState(1);
   const [problem, setProblem] = useState<Problem | null>(null);
@@ -101,6 +135,7 @@ export default function Home() {
   if (gameState === 'loading' || !problem || !currentBoard) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center p-4">
+        <JsonLd />
         <h1 className="text-4xl font-bold">パズルパネル</h1>
         <p className="mt-2">問題を生成中...</p>
       </main>
@@ -113,6 +148,7 @@ export default function Home() {
 
     return (
       <main className="flex min-h-screen flex-col items-center justify-center p-4 text-center bg-background">
+        <JsonLd />
         <div className="bg-stone-dark/70 p-8 rounded-lg shadow-inner-strong space-y-6">
             <h2 className="text-3xl text-stone-light font-bold">結果</h2>
             <div className="text-xl space-y-4 text-stone-light/90">
@@ -135,6 +171,7 @@ export default function Home() {
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-start p-4 space-y-4 md:space-y-6">
+      <JsonLd />
       <ConfirmModal 
         isOpen={isConfirmModalOpen}
         onConfirm={confirmEndGame}
