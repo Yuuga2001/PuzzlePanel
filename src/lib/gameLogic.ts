@@ -92,26 +92,25 @@ export const getStageForLevel = (level: number): number => {
 };
 
 export const generateProblem = (level: number): Problem => {
-  let size: number;
-  let requiredTaps: number;
+  let size: number = 4;
+  let requiredTaps: number = 1;
 
   let tempLevel = level;
-  let stageFound = false;
   for (const stage of stages) {
     if (tempLevel <= stage.levels) {
       size = stage.size;
       requiredTaps = stage.taps;
-      stageFound = true;
       break;
     }
     tempLevel -= stage.levels;
   }
 
   // If level exceeds defined stages, extrapolate
-  if (!stageFound) {
-      size = 6 + Math.floor((level - 50) / 10);
-      requiredTaps = 1 + ((level - 50) % 5);
+  if (tempLevel > 0) {
+      size = 6 + Math.floor((level - 100) / 10);
+      requiredTaps = 1 + ((level - 100) % 5);
       if (size > 9) size = 9; // Max size
+      if (size < 4) size = 4; // Min size
   }
 
   // 1. 全て 'O' の目標盤面を作成

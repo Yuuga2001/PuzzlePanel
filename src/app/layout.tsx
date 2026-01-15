@@ -4,8 +4,7 @@ import "./../styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// TODO: 本番環境のドメインに変更してください
-const siteUrl = "https://puzzle-panel.example.com";
+const siteUrl = "https://puzzlepanel.riverapp.jp";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

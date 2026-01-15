@@ -25,7 +25,7 @@ const GameStatusOverlay: React.FC<{ status: 'cleared' | 'failed' }> = ({ status 
 };
 
 
-const siteUrl = "https://puzzle-panel.example.com"; // TODO: 本番環境のドメインに変更してください
+const siteUrl = "https://puzzlepanel.riverapp.jp";
 
 const JsonLd = () => {
   const data = {
