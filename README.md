@@ -4,6 +4,8 @@
 
 デザインと機能性が調和した、本格派のパズル体験を提供します。
 
+![Puzzle Panel Screenshot](public/screenshot.png)
+
 ## 遊び方
 
 1.  **目標を確認**: 画面上部に表示される「目標盤面」の形を覚えます。
