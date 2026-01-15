@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Controls from '@/components/Controls';
 import GameBoard from '@/components/GameBoard';
 import InfoDisplay from '@/components/InfoDisplay';
+import ConfirmModal from '@/components/ConfirmModal';
 import { generateProblem, flipPanels, areBoardsEqual, getStageForLevel } from '@/lib/gameLogic';
 import type { Problem, Board } from '@/lib/gameLogic';
 
@@ -31,6 +32,7 @@ export default function Home() {
   const [tapsLeft, setTapsLeft] = useState(0);
   const [totalFailedAttempts, setTotalFailedAttempts] = useState(0);
   const [gameState, setGameState] = useState<GameState>('loading');
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   // 新しい問題を読み込む関数
   const loadProblem = (newLevel: number) => {
@@ -80,10 +82,21 @@ export default function Home() {
     setTapsLeft(prev => prev - 1);
   };
   
-  // ゲーム終了処理
+  // 確認モーダルを開く
   const handleEndGame = () => {
-    setGameState('finished');
+    setIsConfirmModalOpen(true);
   };
+
+  // ゲームを実際に終了する
+  const confirmEndGame = () => {
+    setGameState('finished');
+    setIsConfirmModalOpen(false);
+  }
+
+  // 終了をキャンセルする
+  const cancelEndGame = () => {
+    setIsConfirmModalOpen(false);
+  }
 
   if (gameState === 'loading' || !problem || !currentBoard) {
     return (
@@ -109,7 +122,6 @@ export default function Home() {
             </div>
             <button 
                 onClick={() => {
-                    setLevel(1);
                     setTotalFailedAttempts(0);
                     loadProblem(1);
                 }} 
@@ -123,6 +135,12 @@ export default function Home() {
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-start p-4 space-y-4 md:space-y-6">
+      <ConfirmModal 
+        isOpen={isConfirmModalOpen}
+        onConfirm={confirmEndGame}
+        onCancel={cancelEndGame}
+        message="本当にゲームを終了しますか？"
+      />
       {(gameState === 'cleared' || gameState === 'failed') && <GameStatusOverlay status={gameState} />}
       
       <InfoDisplay

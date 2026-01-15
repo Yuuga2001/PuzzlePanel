@@ -12,7 +12,7 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ level, boardSize, requiredTap
     <div className="w-full max-w-md bg-stone-dark/70 p-4 rounded-lg text-center shadow-inner-strong">
       <div className="flex justify-around items-center">
         <div>
-          <p className="text-sm text-stone-light/80">問題</p>
+          <p className="text-sm text-stone-light/80">レベル</p>
           <p className="text-2xl font-bold text-stone-light">{level}</p>
         </div>
         <div>
