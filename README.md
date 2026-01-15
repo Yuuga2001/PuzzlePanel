@@ -4,6 +4,8 @@
 
 デザインと機能性が調和した、本格派のパズル体験を提供します。
 
+[![今すぐプレイ](https://img.shields.io/badge/%E4%BB%8A%E3%81%99%E3%81%90%E3%83%97%E3%83%AC%E3%82%A4-Play%20Now-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://puzzlepanel.riverapp.jp/)
+
 ![Puzzle Panel Screenshot](public/screenshot.png)
 
 ## 遊び方
