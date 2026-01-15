@@ -33,9 +33,10 @@ const JsonLd = () => {
     "@type": "VideoGame",
     "name": "Puzzle Panel (パズルパネル)",
     "url": siteUrl,
-    "description": "A brain-teasing puzzle game with an ancient Egyptian theme. Flip the stone panels to match the target pattern in a set number of moves. | 古代エジプトがテーマの、シンプルで奥深いロジカルパズルゲーム。石板を反転させ、規定回数内に目標の模様を完成させよう。",
+    "description": "A brain-teasing puzzle game with an ancient Egyptian theme. Flip the stone panels to match the target pattern in a set number of moves. | シンプルで奥深いロジカルパズルゲーム。石板を反転させ、規定回数内に目標の模様を完成させよう。",
     "inLanguage": ["en", "ja"],
     "applicationCategory": "Game",
+    "genre": ["Puzzle", "Logic", "Brain Teaser"],
     "gamePlatform": "WebBrowser",
     "operatingSystem": "Any",
     "screenshot": `${siteUrl}/screenshot.png`,
@@ -46,7 +47,9 @@ const JsonLd = () => {
     },
     "offers": {
       "@type": "Offer",
-      "price": "0"
+      "price": "0",
+      "priceCurrency": "JPY",
+      "availability": "https://schema.org/InStock"
     },
     "playMode": "SinglePlayer"
   };
