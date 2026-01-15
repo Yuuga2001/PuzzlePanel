@@ -96,17 +96,19 @@ export const generateProblem = (level: number): Problem => {
   let requiredTaps: number = 1;
 
   let tempLevel = level;
+  let stageFound = false;
   for (const stage of stages) {
     if (tempLevel <= stage.levels) {
       size = stage.size;
       requiredTaps = stage.taps;
+      stageFound = true;
       break;
     }
     tempLevel -= stage.levels;
   }
 
   // If level exceeds defined stages, extrapolate
-  if (tempLevel > 0) {
+  if (!stageFound) {
       size = 6 + Math.floor((level - 100) / 10);
       requiredTaps = 1 + ((level - 100) % 5);
       if (size > 9) size = 9; // Max size
