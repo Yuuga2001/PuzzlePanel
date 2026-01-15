@@ -5,6 +5,7 @@ import Controls from '@/components/Controls';
 import GameBoard from '@/components/GameBoard';
 import InfoDisplay from '@/components/InfoDisplay';
 import ConfirmModal from '@/components/ConfirmModal';
+import HowToPlayModal from '@/components/HowToPlayModal';
 import { generateProblem, flipPanels, areBoardsEqual, getStageForLevel } from '@/lib/gameLogic';
 import type { Problem, Board } from '@/lib/gameLogic';
 
@@ -70,6 +71,7 @@ export default function Home() {
   const [totalFailedAttempts, setTotalFailedAttempts] = useState(0);
   const [gameState, setGameState] = useState<GameState>('loading');
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isHowToPlayOpen, setIsHowToPlayOpen] = useState(false);
 
   // 新しい問題を読み込む関数
   const loadProblem = (newLevel: number) => {
@@ -175,21 +177,30 @@ export default function Home() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-start p-4 space-y-4 md:space-y-6">
       <JsonLd />
-      <ConfirmModal 
+      <ConfirmModal
         isOpen={isConfirmModalOpen}
         onConfirm={confirmEndGame}
         onCancel={cancelEndGame}
         message="本当にゲームを終了しますか？"
       />
+      <HowToPlayModal
+        isOpen={isHowToPlayOpen}
+        onClose={() => setIsHowToPlayOpen(false)}
+      />
       {(gameState === 'cleared' || gameState === 'failed') && <GameStatusOverlay status={gameState} />}
-      
+
       <InfoDisplay
         level={problem.level}
         boardSize={problem.size}
         requiredTaps={problem.requiredTaps}
+        onHelpClick={() => setIsHowToPlayOpen(true)}
       />
 
-      <div className="text-center">
+      <div
+        className="text-center cursor-pointer"
+        onClick={() => setIsHowToPlayOpen(true)}
+        title="タップで遊び方を表示"
+      >
         <p className="text-sm text-stone-light/70">目標盤面</p>
         <GameBoard board={problem.targetBoard} disabled={true} isTarget={true} />
       </div>
