@@ -9,6 +9,7 @@ import HowToPlayModal from '@/components/HowToPlayModal';
 import LevelInfoModal from '@/components/LevelInfoModal';
 import { generateProblem, flipPanels, areBoardsEqual, getStageForLevel } from '@/lib/gameLogic';
 import type { Problem, Board } from '@/lib/gameLogic';
+import { useResponsiveSize } from '@/hooks/useResponsiveSize';
 
 type GameState = 'loading' | 'playing' | 'cleared' | 'failed' | 'finished';
 
@@ -74,6 +75,8 @@ export default function Home() {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isHowToPlayOpen, setIsHowToPlayOpen] = useState(false);
   const [isLevelInfoOpen, setIsLevelInfoOpen] = useState(false);
+
+  const { panelSize, gap } = useResponsiveSize(problem?.size ?? 4);
 
   // 新しい問題を読み込む関数
   const loadProblem = (newLevel: number) => {
@@ -177,7 +180,7 @@ export default function Home() {
   }
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-start p-4 space-y-4 md:space-y-6">
+    <main className="relative flex h-screen max-h-screen flex-col items-center justify-between p-3 overflow-hidden">
       <JsonLd />
       <ConfirmModal
         isOpen={isConfirmModalOpen}
@@ -209,16 +212,24 @@ export default function Home() {
         onClick={() => setIsHowToPlayOpen(true)}
         title="タップで遊び方を表示"
       >
-        <p className="text-sm text-stone-light/70">目標盤面</p>
-        <GameBoard board={problem.targetBoard} disabled={true} isTarget={true} />
+        <p className="text-xs text-stone-light/70 mb-1">目標盤面</p>
+        <GameBoard
+          board={problem.targetBoard}
+          disabled={true}
+          isTarget={true}
+          panelSize={panelSize}
+          gap={gap}
+        />
       </div>
 
       <div className="text-center">
-        <p className="text-sm text-stone-light/70">操作盤面</p>
+        <p className="text-xs text-stone-light/70 mb-1">操作盤面</p>
         <GameBoard
           board={currentBoard}
           onPanelClick={handlePanelClick}
           disabled={gameState !== 'playing'}
+          panelSize={panelSize}
+          gap={gap}
         />
       </div>
 
