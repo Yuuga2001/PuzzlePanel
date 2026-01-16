@@ -76,7 +76,7 @@ export default function Home() {
   const [isHowToPlayOpen, setIsHowToPlayOpen] = useState(false);
   const [isLevelInfoOpen, setIsLevelInfoOpen] = useState(false);
 
-  const { panelSize, gap } = useResponsiveSize(problem?.size ?? 4);
+  const { panelSize, gap, isLandscape } = useResponsiveSize(problem?.size ?? 4);
 
   // 新しい問題を読み込む関数
   const loadProblem = (newLevel: number) => {
@@ -179,8 +179,75 @@ export default function Home() {
     )
   }
 
+  if (isLandscape) {
+    // 横長レイアウト
+    return (
+      <main className="relative flex h-screen max-h-screen flex-col pt-4 px-4 pb-16 overflow-hidden">
+        <JsonLd />
+        <ConfirmModal
+          isOpen={isConfirmModalOpen}
+          onConfirm={confirmEndGame}
+          onCancel={cancelEndGame}
+          message="本当にゲームを終了しますか？"
+        />
+        <HowToPlayModal
+          isOpen={isHowToPlayOpen}
+          onClose={() => setIsHowToPlayOpen(false)}
+        />
+        <LevelInfoModal
+          isOpen={isLevelInfoOpen}
+          onClose={() => setIsLevelInfoOpen(false)}
+          currentLevel={level}
+        />
+        {(gameState === 'cleared' || gameState === 'failed') && <GameStatusOverlay status={gameState} />}
+
+        {/* 上部: InfoDisplay と Controls を横並び */}
+        <div className="w-full flex items-stretch gap-4 mb-8">
+          <InfoDisplay
+            level={problem.level}
+            boardSize={problem.size}
+            requiredTaps={problem.requiredTaps}
+            onHelpClick={() => setIsHowToPlayOpen(true)}
+            onLevelClick={() => setIsLevelInfoOpen(true)}
+          />
+          <Controls tapsLeft={tapsLeft} onEndGame={handleEndGame} />
+        </div>
+
+        {/* 下部: 2つの盤面を横並び */}
+        <div className="flex-1 flex justify-center items-center gap-10">
+          <div
+            className="text-center cursor-pointer"
+            onClick={() => setIsHowToPlayOpen(true)}
+            title="タップで遊び方を表示"
+          >
+            <p className="text-xs text-stone-light/70 mb-1">目標盤面</p>
+            <GameBoard
+              board={problem.targetBoard}
+              disabled={true}
+              isTarget={true}
+              panelSize={panelSize}
+              gap={gap}
+            />
+          </div>
+
+          <div className="text-center">
+            <p className="text-xs text-stone-light/70 mb-1">操作盤面</p>
+            <GameBoard
+              board={currentBoard}
+              onPanelClick={handlePanelClick}
+              disabled={gameState !== 'playing'}
+              panelSize={panelSize}
+              gap={gap}
+            />
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  // 縦長レイアウト
   return (
-    <main className="relative flex h-screen max-h-screen flex-col items-center justify-between p-3 overflow-hidden">
+    <main className="relative flex h-screen max-h-screen flex-col items-center justify-between pt-4 px-4 pb-24 overflow-hidden">
       <JsonLd />
       <ConfirmModal
         isOpen={isConfirmModalOpen}
@@ -199,20 +266,22 @@ export default function Home() {
       />
       {(gameState === 'cleared' || gameState === 'failed') && <GameStatusOverlay status={gameState} />}
 
-      <InfoDisplay
-        level={problem.level}
-        boardSize={problem.size}
-        requiredTaps={problem.requiredTaps}
-        onHelpClick={() => setIsHowToPlayOpen(true)}
-        onLevelClick={() => setIsLevelInfoOpen(true)}
-      />
+      <div className="w-full mb-4">
+        <InfoDisplay
+          level={problem.level}
+          boardSize={problem.size}
+          requiredTaps={problem.requiredTaps}
+          onHelpClick={() => setIsHowToPlayOpen(true)}
+          onLevelClick={() => setIsLevelInfoOpen(true)}
+        />
+      </div>
 
       <div
-        className="text-center cursor-pointer"
+        className="text-center cursor-pointer mb-4"
         onClick={() => setIsHowToPlayOpen(true)}
         title="タップで遊び方を表示"
       >
-        <p className="text-xs text-stone-light/70 mb-1">目標盤面</p>
+        <p className="text-sm text-stone-light/70 mb-2">目標盤面</p>
         <GameBoard
           board={problem.targetBoard}
           disabled={true}
@@ -222,8 +291,8 @@ export default function Home() {
         />
       </div>
 
-      <div className="text-center">
-        <p className="text-xs text-stone-light/70 mb-1">操作盤面</p>
+      <div className="text-center mt-4">
+        <p className="text-sm text-stone-light/70 mb-2">操作盤面</p>
         <GameBoard
           board={currentBoard}
           onPanelClick={handlePanelClick}
@@ -233,7 +302,9 @@ export default function Home() {
         />
       </div>
 
-      <Controls tapsLeft={tapsLeft} onEndGame={handleEndGame} />
+      <div className="w-full mt-4">
+        <Controls tapsLeft={tapsLeft} onEndGame={handleEndGame} />
+      </div>
     </main>
   );
 }
