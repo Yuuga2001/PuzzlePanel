@@ -291,7 +291,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="text-center mt-4">
+      <div className="text-center">
         <p className="text-sm text-stone-light/70 mb-2">操作盤面</p>
         <GameBoard
           board={currentBoard}

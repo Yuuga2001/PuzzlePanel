@@ -9,9 +9,9 @@ interface ControlsProps {
 const Controls: React.FC<ControlsProps> = ({ tapsLeft, onEndGame }) => {
   return (
     <div className="flex-1 flex justify-between items-center gap-4 bg-stone-dark/70 p-4 rounded-lg shadow-inner-strong">
-      <div>
+      <div className="text-center">
         <p className="text-sm text-stone-light/80">残りタップ数</p>
-        <p className="text-3xl font-bold text-stone-light text-center">{tapsLeft}</p>
+        <p className="text-3xl font-bold text-stone-light">{tapsLeft}</p>
       </div>
       <button
         onClick={onEndGame}
