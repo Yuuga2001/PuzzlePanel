@@ -6,9 +6,10 @@ interface InfoDisplayProps {
   boardSize: number;
   requiredTaps: number;
   onHelpClick?: () => void;
+  onLevelClick?: () => void;
 }
 
-const InfoDisplay: React.FC<InfoDisplayProps> = ({ level, boardSize, requiredTaps, onHelpClick }) => {
+const InfoDisplay: React.FC<InfoDisplayProps> = ({ level, boardSize, requiredTaps, onHelpClick, onLevelClick }) => {
   return (
     <div
       className="w-full max-w-md bg-stone-dark/70 p-4 rounded-lg text-center shadow-inner-strong cursor-pointer hover:bg-stone-dark/90 transition-colors"
@@ -16,7 +17,14 @@ const InfoDisplay: React.FC<InfoDisplayProps> = ({ level, boardSize, requiredTap
       title="タップで遊び方を表示"
     >
       <div className="flex justify-around items-center">
-        <div>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            onLevelClick?.();
+          }}
+          className="cursor-pointer hover:bg-stone-light/10 rounded-lg px-3 py-1 transition-colors"
+          title="タップでレベル構成を表示"
+        >
           <p className="text-sm text-stone-light/80">レベル</p>
           <p className="text-2xl font-bold text-stone-light">{level}</p>
         </div>

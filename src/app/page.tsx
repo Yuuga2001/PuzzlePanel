@@ -6,6 +6,7 @@ import GameBoard from '@/components/GameBoard';
 import InfoDisplay from '@/components/InfoDisplay';
 import ConfirmModal from '@/components/ConfirmModal';
 import HowToPlayModal from '@/components/HowToPlayModal';
+import LevelInfoModal from '@/components/LevelInfoModal';
 import { generateProblem, flipPanels, areBoardsEqual, getStageForLevel } from '@/lib/gameLogic';
 import type { Problem, Board } from '@/lib/gameLogic';
 
@@ -72,6 +73,7 @@ export default function Home() {
   const [gameState, setGameState] = useState<GameState>('loading');
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isHowToPlayOpen, setIsHowToPlayOpen] = useState(false);
+  const [isLevelInfoOpen, setIsLevelInfoOpen] = useState(false);
 
   // 新しい問題を読み込む関数
   const loadProblem = (newLevel: number) => {
@@ -187,6 +189,11 @@ export default function Home() {
         isOpen={isHowToPlayOpen}
         onClose={() => setIsHowToPlayOpen(false)}
       />
+      <LevelInfoModal
+        isOpen={isLevelInfoOpen}
+        onClose={() => setIsLevelInfoOpen(false)}
+        currentLevel={level}
+      />
       {(gameState === 'cleared' || gameState === 'failed') && <GameStatusOverlay status={gameState} />}
 
       <InfoDisplay
@@ -194,6 +201,7 @@ export default function Home() {
         boardSize={problem.size}
         requiredTaps={problem.requiredTaps}
         onHelpClick={() => setIsHowToPlayOpen(true)}
+        onLevelClick={() => setIsLevelInfoOpen(true)}
       />
 
       <div

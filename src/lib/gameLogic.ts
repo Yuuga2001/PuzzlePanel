@@ -65,16 +65,16 @@ interface Stage {
 }
 
 const stages: Stage[] = [
-    { size: 4, taps: 1, levels: 10 }, // Lv 1-10
-    { size: 4, taps: 2, levels: 10 }, // Lv 11-20
-    { size: 5, taps: 1, levels: 10 }, // Lv 21-30
-    { size: 5, taps: 2, levels: 10 }, // Lv 31-40
-    { size: 6, taps: 2, levels: 10 }, // Lv 41-50
-    { size: 6, taps: 3, levels: 10 }, // Lv 51-60
-    { size: 7, taps: 3, levels: 10 }, // Lv 61-70
-    { size: 7, taps: 4, levels: 10 }, // Lv 71-80
-    { size: 8, taps: 3, levels: 10 }, // Lv 81-90
-    { size: 8, taps: 4, levels: 10 }, // Lv 91-100
+    { size: 4, taps: 1, levels: 5 },   // Lv 1-5 (ステージ1)
+    { size: 4, taps: 2, levels: 15 },  // Lv 6-20 (ステージ2)
+    { size: 5, taps: 3, levels: 10 },  // Lv 21-30 (ステージ3)
+    { size: 5, taps: 4, levels: 10 },  // Lv 31-40 (ステージ4)
+    { size: 6, taps: 5, levels: 10 },  // Lv 41-50 (ステージ5)
+    { size: 6, taps: 6, levels: 10 },  // Lv 51-60 (ステージ6)
+    { size: 7, taps: 7, levels: 10 },  // Lv 61-70 (ステージ7) ※表では61-75だが問題数10なので61-70
+    { size: 7, taps: 8, levels: 10 },  // Lv 71-80 (ステージ8)
+    { size: 8, taps: 9, levels: 10 },  // Lv 81-90 (ステージ9)
+    { size: 8, taps: 10, levels: 10 }, // Lv 91-100 (ステージ10)
 ];
 
 export const getStageForLevel = (level: number): number => {
