@@ -213,7 +213,7 @@ export default function Home() {
         </div>
 
         {/* 下部: 2つの盤面を横並び */}
-        <div className="flex-1 flex justify-center items-center gap-10">
+        <div className="flex-1 flex justify-center items-start gap-10 pt-2">
           <div
             className="text-center cursor-pointer"
             onClick={() => setIsHowToPlayOpen(true)}
