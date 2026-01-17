@@ -46,17 +46,18 @@ export const useResponsiveSize = (boardSize: number): ResponsiveSize => {
         panelSize = Math.floor(Math.min(maxPanelFromHeight, maxPanelFromWidth));
       } else {
         // 縦長レイアウト
-        // InfoDisplay: 約70px + mb-4: 16px
-        // 目標盤面ラベル: 約24px + mb-4: 16px
-        // 操作盤面ラベル: 約24px + mt-4: 16px
-        // Controls: 約70px + mt-4: 16px
-        // padding: pt-4(16px) + pb-24(96px) = 112px
-        const fixedHeight = 70 + 16 + 24 + 16 + 24 + 16 + 70 + 16 + 112;
+        // InfoDisplay: 約50px (py-2 + コンテンツ) + pt-2 + pb-1 = 約55px
+        // 目標盤面ラベル: 約16px + mb-0.5 = 約18px
+        // 操作盤面ラベル: 約16px + mb-0.5 = 約18px
+        // 盤面間: mb-2 = 8px
+        // 下部パディング: pb-16 = 64px (スマホブラウザのコントロールバー対策)
+        // 上部余白: 8px
+        const fixedHeight = 55 + 18 + 18 + 8 + 64 + 8;
         const availableHeight = vh - fixedHeight;
         const boardHeight = availableHeight / 2;
 
-        // 横幅制限を撤廃
-        const availableWidth = vw - 32;
+        // 横幅制限（左右にもう少し余白）
+        const availableWidth = vw - 48;
 
         const maxPanelFromHeight = (boardHeight - gapTotal - paddingTotal) / boardSize;
         const maxPanelFromWidth = (availableWidth - gapTotal - paddingTotal) / boardSize;

@@ -24,7 +24,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
 
   const boardStyle = isTarget
     ? "bg-stone-dark/50 rounded-lg shadow-inner"
-    : "bg-stone-dark/80 rounded-lg shadow-inner-strong";
+    : "bg-stone-dark/80 rounded-lg shadow-inner-strong mb-32";
 
   const padding = isTarget ? 8 : 12;
 

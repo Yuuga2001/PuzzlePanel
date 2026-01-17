@@ -246,7 +246,7 @@ export default function Home() {
 
   // 縦長レイアウト
   return (
-    <main className="relative flex h-screen max-h-screen flex-col items-center justify-between pt-4 px-4 pb-24 overflow-hidden">
+    <main className="relative flex h-screen max-h-screen flex-col items-center px-4 overflow-hidden">
       <JsonLd />
       <ConfirmModal
         isOpen={isConfirmModalOpen}
@@ -265,7 +265,8 @@ export default function Home() {
       />
       {(gameState === 'cleared' || gameState === 'failed') && <GameStatusOverlay status={gameState} />}
 
-      <div className="w-full mb-4">
+      {/* 上部固定: InfoDisplay */}
+      <div className="w-full pt-2 pb-1">
         <InfoDisplay
           level={problem.level}
           boardSize={problem.size}
@@ -276,32 +277,34 @@ export default function Home() {
         />
       </div>
 
-      <div
-        className="text-center cursor-pointer mb-4"
-        onClick={() => setIsHowToPlayOpen(true)}
-        title="タップで遊び方を表示"
-      >
-        <p className="text-sm text-stone-light/70 mb-2">目標盤面</p>
-        <GameBoard
-          board={problem.targetBoard}
-          disabled={true}
-          isTarget={true}
-          panelSize={panelSize}
-          gap={gap}
-        />
-      </div>
+      {/* 盤面エリア: 残りのスペースを使って中央寄せ */}
+      <div className="flex-1 flex flex-col justify-center">
+        <div
+          className="text-center cursor-pointer mb-4"
+          onClick={() => setIsHowToPlayOpen(true)}
+          title="タップで遊び方を表示"
+        >
+          <p className="text-xs text-stone-light/70 mb-0.5 mt-2">目標盤面</p>
+          <GameBoard
+            board={problem.targetBoard}
+            disabled={true}
+            isTarget={true}
+            panelSize={panelSize}
+            gap={gap}
+          />
+        </div>
 
-      <div className="text-center">
-        <p className="text-sm text-stone-light/70 mb-2">操作盤面</p>
-        <GameBoard
-          board={currentBoard}
-          onPanelClick={handlePanelClick}
-          disabled={gameState !== 'playing'}
-          panelSize={panelSize}
-          gap={gap}
-        />
+        <div className="text-center">
+          <p className="text-xs text-stone-light/70 mb-0.5">操作盤面</p>
+          <GameBoard
+            board={currentBoard}
+            onPanelClick={handlePanelClick}
+            disabled={gameState !== 'playing'}
+            panelSize={panelSize}
+            gap={gap}
+          />
+        </div>
       </div>
-
     </main>
   );
 }
