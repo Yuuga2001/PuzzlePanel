@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import Controls from '@/components/Controls';
 import GameBoard from '@/components/GameBoard';
 import InfoDisplay from '@/components/InfoDisplay';
 import ConfirmModal from '@/components/ConfirmModal';
@@ -201,16 +200,16 @@ export default function Home() {
         />
         {(gameState === 'cleared' || gameState === 'failed') && <GameStatusOverlay status={gameState} />}
 
-        {/* 上部: InfoDisplay と Controls を横並び */}
-        <div className="w-full flex items-stretch gap-4 mb-8">
+        {/* 上部: InfoDisplay */}
+        <div className="w-full mb-4">
           <InfoDisplay
             level={problem.level}
             boardSize={problem.size}
-            requiredTaps={problem.requiredTaps}
+            tapsLeft={tapsLeft}
             onHelpClick={() => setIsHowToPlayOpen(true)}
             onLevelClick={() => setIsLevelInfoOpen(true)}
+            onEndGame={handleEndGame}
           />
-          <Controls tapsLeft={tapsLeft} onEndGame={handleEndGame} />
         </div>
 
         {/* 下部: 2つの盤面を横並び */}
@@ -270,9 +269,10 @@ export default function Home() {
         <InfoDisplay
           level={problem.level}
           boardSize={problem.size}
-          requiredTaps={problem.requiredTaps}
+          tapsLeft={tapsLeft}
           onHelpClick={() => setIsHowToPlayOpen(true)}
           onLevelClick={() => setIsLevelInfoOpen(true)}
+          onEndGame={handleEndGame}
         />
       </div>
 
@@ -302,9 +302,6 @@ export default function Home() {
         />
       </div>
 
-      <div className="w-full mt-4">
-        <Controls tapsLeft={tapsLeft} onEndGame={handleEndGame} />
-      </div>
     </main>
   );
 }
