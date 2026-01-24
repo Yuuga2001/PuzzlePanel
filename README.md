@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/apple-touch-icon.png" width="128" alt="Puzzle Panel Icon">
+</p>
+
 # パズルパネル (Puzzle Panel)
 
 「パズルパネル」は、石板をモチーフにした、シンプルで奥深いパズルゲームです。プレイヤーは、毎回ランダムに生成される盤面で、決められたタップ回数内で目標の形を完成させることを目指します。
